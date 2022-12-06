@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text;
 using ESCPOS_NET.Emitters.BaseCommandValues;
 
 namespace ESCPOS_NET.Emitters
@@ -8,12 +9,15 @@ namespace ESCPOS_NET.Emitters
         /* Printing Commands */
         public virtual byte[] Print(string data)
         {
-            // Fix OSX or Windows-style newlines
-            data = data.Replace("\r\n", "\n");
-            data = data.Replace("\r", "\n");
-
+            //TODO Вот сдесь
+            byte[] s = System.Text.Encoding.UTF8.GetBytes(data);
+            // System.Text.Encoding.GetEncoding(1251).GetBytes(data);
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            var encode = Encoding.GetEncoding(866);
+            var newbyte = Encoding.Convert(Encoding.UTF8, encode, s);
             // TODO: Sanitize...
-            return data.ToCharArray().Select(x => (byte)x).ToArray();
+            // return data.ToCharArray().Select(x => (byte)x).ToArray();
+            return newbyte;
         }
 
         public virtual byte[] PrintLine(string line)
