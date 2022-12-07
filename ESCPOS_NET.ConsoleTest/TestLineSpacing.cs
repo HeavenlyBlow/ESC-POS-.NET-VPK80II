@@ -6,12 +6,12 @@ namespace ESCPOS_NET.ConsoleTest
     {
         public static byte[][] LineSpacing(ICommandEmitter e) => new byte[][] {
             e.SetLineSpacingInDots(200),
-            e.PrintLine("This is the default spacing."),
+            e.PrintLine("Это дефолтный отступ."),
             e.SetLineSpacingInDots(15),
-            e.PrintLine("This has 200 dots of spacing above."),
+            e.PrintLine("Это имеет 200 точек интервала выше."),
             e.ResetLineSpacing(),
-            e.PrintLine("This has 15 dots of spacing above."),
-            e.PrintLine("This has the default spacing.")
+            e.PrintLine("Это имеет 15 точек интервала выше."),
+            e.PrintLine("Это дефолтный отступ.")
         };
     }
 }

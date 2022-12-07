@@ -60,7 +60,7 @@ namespace ESCPOS_NET.ConsoleTest
                         comPort = Console.ReadLine();
                         if (string.IsNullOrWhiteSpace(comPort))
                         {
-                            comPort = "COM3";
+                            comPort = "COM6";
                         }
                     }
 
@@ -123,43 +123,47 @@ namespace ESCPOS_NET.ConsoleTest
                 }
             }
 
-            var e = new EPSON();
-            printer.Write( // or, if using and immediate printer, use await printer.WriteAsync
-                ByteSplicer.Combine(
-                    e.CenterAlign(),
-                    // e.PrintImage(File.ReadAllBytes("images/logo.png"), true),
-                    // e.PrintLine(""),
-                    e.PrintBarcode(BarcodeType.ITF, "0123456789"),
-                    e.PrintLine(""),
-                    e.PrintLine("Театр Арлекин"),
-                    e.PrintLine("Город Ижевск"),
-                    e.PrintLine("Калашникова, 18"),
-                    e.PrintLine("(212) 502-6380"),
-                    e.SetStyles(PrintStyle.Underline),
-                    e.PrintLine("www.арлекин.com"),
-                    e.SetStyles(PrintStyle.None),
-                    e.LeftAlign(),
-                    e.PrintLine(""),
-                    e.PrintLine("Заказ: 123456789        Дата: 02/01/19"),
-                    e.SetStyles(PrintStyle.FontB),
-                    e.PrintLine("1   Представление такое-то"),
-                    e.PrintLine("    Цена                        100.95         "),
-                    e.PrintLine("-----------------------------------------------------"),
-                    e.PrintLine(""),
-                    e.RightAlign(),
-                    e.PrintLine("Всего         89.95"),
-                    e.PrintLine("Цена заказа:         89.95"),
-                    e.PrintLine("Всего:         89.95"),
-                    e.LeftAlign(),
-                    e.PrintLine("")
-                )
-            );
-            await Task.Delay(500);
-            printer?.Write(e.FullCutAfterFeed(500));
-            await Task.Delay(500);
+            var fontBident = 41;
+        var e = new EPSON();
+        printer.Write( // or, if using and immediate printer, use await printer.WriteAsync
+            ByteSplicer.Combine(
+                e.CenterAlign(),
+                // e.PrintImage(File.ReadAllBytes("images/logo.png"), true),
+                // e.PrintLine(""),
+                e.SetStyles(PrintStyle.Bold),
+                e.CenterAlign(),
+                e.PrintLine("Кассовый чек"),
+                e.SetStyles(PrintStyle.FontB),
+                e.LeftAlign(),
+                e.PrintLine("Билеты на представление"),
+                e.PrintLine(IdentHelper.ArrangeWords("1500    *    2", "3000.00", IdentHelper.Style.FontB)),
+                e.PrintLine(IdentHelper.ArrangeWords("Ндс 10%", "=272.73", IdentHelper.Style.FontB)),
+                e.PrintLine(IdentHelper.ArrangeWords("ТОВАР", "ПРЕДОПЛАТА 100%", IdentHelper.Style.FontB)),
+                e.PrintLine(IdentHelper.SolidLine(IdentHelper.Style.FontB)),
+                e.PrintLine(IdentHelper.ArrangeWords("ИТОГО", "=3000.00", IdentHelper.Style.FontB)),
+                e.PrintLine(IdentHelper.SolidLine(IdentHelper.Style.FontB)),
+                e.PrintLine(IdentHelper.ArrangeWords("Сумма НДС 10%", "=272.73", IdentHelper.Style.FontB)),
+                e.PrintLine(IdentHelper.ArrangeWords("НАЛИЧНЫМИ", "=3000" , IdentHelper.Style.FontB)),
+                e.PrintLine(IdentHelper.ArrangeWords("Кассив", "СИС. АДМИНИСТРАТОР", IdentHelper.Style.FontB)),
+                e.PrintLine("ИП Шаймарданова Гулия Зульфатовна"),
+                e.PrintLine("422120, село Янцобино"),
+                e.PrintLine(IdentHelper.ArrangeWords("Место расчетов", "422120, село Янцобино", IdentHelper.Style.FontB)),
+                e.PrintLine(IdentHelper.ArrangeWords("07.12.22", "ЗН ККТ 00107601307908", IdentHelper.Style.FontB)),
+                e.PrintLine(IdentHelper.ArrangeWords("СНО", "УСН доход", IdentHelper.Style.FontB)),
+                e.PrintLine(IdentHelper.ArrangeWords("Сайт фнс", "nalog.ru", IdentHelper.Style.FontB)),
+                e.PrintLine("Приход"),
+                e.PrintLine(IdentHelper.ArrangeWords("РН ККТ", "00107601307908", IdentHelper.Style.FontB)),
+                e.PrintLine(IdentHelper.ArrangeWords("ИНН", "00107601307908", IdentHelper.Style.FontB)),
+                e.PrintLine(IdentHelper.ArrangeWords("ФН", "00107601307908", IdentHelper.Style.FontB)),
+                e.PrintLine(IdentHelper.ArrangeWords("ФД", "124", IdentHelper.Style.FontB)),
+                e.PrintLine(IdentHelper.ArrangeWords("ФП", "077752081100", IdentHelper.Style.FontB))
+            )
+        );
+        await Task.Delay(500);
+        printer?.Write(e.FullCutAfterFeed(500));
+        await Task.Delay(500);
         }
-
-        //     e = new EPSON();
+        // e = new EPSON();
         //     var testCases = new Dictionary<Option, string>()
         //     {
         //         { Option.SingleLinePrinting, "Зашифрованные слова" },
@@ -270,7 +274,6 @@ namespace ESCPOS_NET.ConsoleTest
         //     
         //         // TODO: also make an automatic runner that runs all tests (command line).
         //     }
-        // }
 
         public enum Option
         {
