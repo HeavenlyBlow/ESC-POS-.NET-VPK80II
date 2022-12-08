@@ -60,7 +60,7 @@ namespace ESCPOS_NET.ConsoleTest
                         comPort = Console.ReadLine();
                         if (string.IsNullOrWhiteSpace(comPort))
                         {
-                            comPort = "COM6";
+                            comPort = "COM7";
                         }
                     }
 
@@ -123,157 +123,162 @@ namespace ESCPOS_NET.ConsoleTest
                 }
             }
 
-            var fontBident = 41;
-        var e = new EPSON();
-        printer.Write( // or, if using and immediate printer, use await printer.WriteAsync
-            ByteSplicer.Combine(
-                e.CenterAlign(),
-                // e.PrintImage(File.ReadAllBytes("images/logo.png"), true),
-                // e.PrintLine(""),
-                e.SetStyles(PrintStyle.Bold),
-                e.CenterAlign(),
-                e.PrintLine("Кассовый чек"),
-                e.SetStyles(PrintStyle.FontB),
-                e.LeftAlign(),
-                e.PrintLine("Билеты на представление"),
-                e.PrintLine(IdentHelper.ArrangeWords("1500    *    2", "3000.00", IdentHelper.Style.FontB)),
-                e.PrintLine(IdentHelper.ArrangeWords("Ндс 10%", "=272.73", IdentHelper.Style.FontB)),
-                e.PrintLine(IdentHelper.ArrangeWords("ТОВАР", "ПРЕДОПЛАТА 100%", IdentHelper.Style.FontB)),
-                e.PrintLine(IdentHelper.SolidLine(IdentHelper.Style.FontB)),
-                e.PrintLine(IdentHelper.ArrangeWords("ИТОГО", "=3000.00", IdentHelper.Style.FontB)),
-                e.PrintLine(IdentHelper.SolidLine(IdentHelper.Style.FontB)),
-                e.PrintLine(IdentHelper.ArrangeWords("Сумма НДС 10%", "=272.73", IdentHelper.Style.FontB)),
-                e.PrintLine(IdentHelper.ArrangeWords("НАЛИЧНЫМИ", "=3000" , IdentHelper.Style.FontB)),
-                e.PrintLine(IdentHelper.ArrangeWords("Кассив", "СИС. АДМИНИСТРАТОР", IdentHelper.Style.FontB)),
-                e.PrintLine("ИП Шаймарданова Гулия Зульфатовна"),
-                e.PrintLine("422120, село Янцобино"),
-                e.PrintLine(IdentHelper.ArrangeWords("Место расчетов", "422120, село Янцобино", IdentHelper.Style.FontB)),
-                e.PrintLine(IdentHelper.ArrangeWords("07.12.22", "ЗН ККТ 00107601307908", IdentHelper.Style.FontB)),
-                e.PrintLine(IdentHelper.ArrangeWords("СНО", "УСН доход", IdentHelper.Style.FontB)),
-                e.PrintLine(IdentHelper.ArrangeWords("Сайт фнс", "nalog.ru", IdentHelper.Style.FontB)),
-                e.PrintLine("Приход"),
-                e.PrintLine(IdentHelper.ArrangeWords("РН ККТ", "00107601307908", IdentHelper.Style.FontB)),
-                e.PrintLine(IdentHelper.ArrangeWords("ИНН", "00107601307908", IdentHelper.Style.FontB)),
-                e.PrintLine(IdentHelper.ArrangeWords("ФН", "00107601307908", IdentHelper.Style.FontB)),
-                e.PrintLine(IdentHelper.ArrangeWords("ФД", "124", IdentHelper.Style.FontB)),
-                e.PrintLine(IdentHelper.ArrangeWords("ФП", "077752081100", IdentHelper.Style.FontB))
-            )
-        );
-        await Task.Delay(500);
-        printer?.Write(e.FullCutAfterFeed(500));
-        await Task.Delay(500);
+            // var fontBident = 41;
+            // var e = new EPSON();
+            // printer.Write( // or, if using and immediate printer, use await printer.WriteAsync
+            //     ByteSplicer.Combine(
+            //         e.CenterAlign(),
+            //         // e.PrintImage(File.ReadAllBytes("images/logo.png"), true),
+            //         // e.PrintLine(""),
+            //         e.SetStyles(PrintStyle.Bold),
+            //         e.CenterAlign(),
+            //         e.PrintLine("Кассовый чек"),
+            //         e.SetStyles(PrintStyle.FontB),
+            //         e.LeftAlign(),
+            //         e.PrintLine("Билеты на представление"),
+            //         e.PrintLine(IdentHelper.ArrangeWords("1500    *    2", "3000.00", IdentHelper.Style.FontB)),
+            //         e.PrintLine(IdentHelper.ArrangeWords("Ндс 10%", "=272.73", IdentHelper.Style.FontB)),
+            //         e.PrintLine(IdentHelper.ArrangeWords("ТОВАР", "ПРЕДОПЛАТА 100%", IdentHelper.Style.FontB)),
+            //         e.PrintLine(IdentHelper.SolidLine(IdentHelper.Style.FontB)),
+            //         e.PrintLine(IdentHelper.ArrangeWords("ИТОГО", "=3000.00", IdentHelper.Style.FontB)),
+            //         e.PrintLine(IdentHelper.SolidLine(IdentHelper.Style.FontB)),
+            //         e.PrintLine(IdentHelper.ArrangeWords("Сумма НДС 10%", "=272.73", IdentHelper.Style.FontB)),
+            //         e.PrintLine(IdentHelper.ArrangeWords("НАЛИЧНЫМИ", "=3000" , IdentHelper.Style.FontB)),
+            //         e.PrintLine(IdentHelper.ArrangeWords("Кассив", "СИС. АДМИНИСТРАТОР", IdentHelper.Style.FontB)),
+            //         e.PrintLine("ИП Шаймарданова Гулия Зульфатовна"),
+            //         e.PrintLine("422120, село Янцобино"),
+            //         e.PrintLine(IdentHelper.ArrangeWords("Место расчетов", "422120, село Янцобино", IdentHelper.Style.FontB)),
+            //         e.PrintLine(IdentHelper.ArrangeWords("07.12.22", "ЗН ККТ 00107601307908", IdentHelper.Style.FontB)),
+            //         e.PrintLine(IdentHelper.ArrangeWords("СНО", "УСН доход", IdentHelper.Style.FontB)),
+            //         e.PrintLine(IdentHelper.ArrangeWords("Сайт фнс", "nalog.ru", IdentHelper.Style.FontB)),
+            //         e.PrintLine("Приход"),
+            //         e.PrintLine(IdentHelper.ArrangeWords("РН ККТ", "00107601307908", IdentHelper.Style.FontB)),
+            //         e.PrintLine(IdentHelper.ArrangeWords("ИНН", "00107601307908", IdentHelper.Style.FontB)),
+            //         e.PrintLine(IdentHelper.ArrangeWords("ФН", "00107601307908", IdentHelper.Style.FontB)),
+            //         e.PrintLine(IdentHelper.ArrangeWords("ФД", "124", IdentHelper.Style.FontB)),
+            //         e.PrintLine(IdentHelper.ArrangeWords("ФП", "077752081100", IdentHelper.Style.FontB))
+            //     )
+            // );
+            // await Task.Delay(500);
+            // printer?.Write(e.FullCutAfterFeed(500));
+            // await Task.Delay(500);
+            // }
+            e = new EPSON();
+            var testCases = new Dictionary<Option, string>()
+            {
+                { Option.SingleLinePrinting, "Зашифрованные слова" },
+                { Option.MultiLinePrinting, "Multi-line Printing" },
+                { Option.LineSpacing, "Line Spacing" },
+                { Option.BarcodeStyles, "Barcode Styles" },
+                { Option.BarcodeTypes, "Barcode Types" },
+                { Option.TwoDimensionCodes, "2D Codes" },
+                { Option.TextStyles, "Text Styles" },
+                { Option.FullReceipt, "Full Receipt" },
+                { Option.CodePages, "Code Pages (Euro, Katakana, Etc)" },
+                { Option.Images, "Images" },
+                { Option.LegacyImages, "Legacy Images" },
+                { Option.LargeByteArrays, "Large Byte Arrays" },
+                { Option.CashDrawerPin2, "Cash Drawer Pin2" },
+                { Option.CashDrawerPin5, "Cash Drawer Pin5" },
+                { Option.Exit, "Exit" }
+
+            };
+            while (true)
+            {
+                foreach (var item in testCases)
+                {
+                    Console.WriteLine($"{(int)item.Key} : {item.Value}");
+                }
+
+                Console.Write("Execute Test: ");
+
+                if (!int.TryParse(Console.ReadLine(), out choice) || !Enum.IsDefined(typeof(Option), choice))
+                {
+                    Console.WriteLine("Invalid entry. Please try again.");
+                    continue;
+                }
+
+                var enumChoice = (Option)choice;
+                if (enumChoice == Option.Exit)
+                {
+                    return;
+                }
+
+                Console.Clear();
+
+                if (monitor)
+                {
+                    printer.Write(e.Initialize());
+                    printer.Write(e.Enable());
+                    printer.Write(e.EnableAutomaticStatusBack());
+                }
+
+                Setup(monitor);
+
+                printer?.Write(e.PrintLine($"== [ Start {testCases[enumChoice]} ] =="));
+
+                switch (enumChoice)
+                {
+                    case Option.SingleLinePrinting:
+                        printer.Write(Tests.SingleLinePrinting(e));
+                        break;
+                    case Option.MultiLinePrinting:
+                        printer.Write(Tests.MultiLinePrinting(e));
+                        break;
+                    case Option.LineSpacing:
+                        printer.Write(Tests.LineSpacing(e));
+                        break;
+                    case Option.BarcodeStyles:
+                        printer.Write(Tests.BarcodeStyles(e));
+                        break;
+                    case Option.BarcodeTypes:
+                        printer.Write(Tests.BarcodeTypes(e));
+                        break;
+                    case Option.TwoDimensionCodes:
+                        printer.Write(Tests.TwoDimensionCodes(e));
+                        break;
+                    case Option.TextStyles:
+                        printer.Write(Tests.TextStyles(e));
+                        break;
+                    case Option.FullReceipt:
+                        printer.Write(Tests.Receipt(e));
+                        break;
+                    case Option.Images:
+                        printer.Write(Tests.Images(e, false));
+                        break;
+                    case Option.LegacyImages:
+                        printer.Write(Tests.Images(e, true));
+                        break;
+                    case Option.LargeByteArrays:
+                        try
+                        {
+                            printer.Write(Tests.TestLargeByteArrays(e));
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(
+                                $"Aborting print due to test failure. Exception: {e?.Message}, Stack Trace: {e?.GetBaseException()?.StackTrace}");
+                        }
+
+                        break;
+                    case Option.CashDrawerPin2:
+                        printer.Write(Tests.CashDrawerOpenPin2(e));
+                        break;
+                    case Option.CashDrawerPin5:
+                        printer.Write(Tests.CashDrawerOpenPin5(e));
+                        break;
+                    default:
+                        Console.WriteLine("Invalid entry.");
+                        break;
+                }
+
+                Setup(monitor);
+                printer?.Write(e.PrintLine($"== [ End {testCases[enumChoice]} ] =="));
+                printer?.Write(e.PartialCutAfterFeed(5));
+
+                // TODO: also make an automatic runner that runs all tests (command line).
+            }
         }
-        // e = new EPSON();
-        //     var testCases = new Dictionary<Option, string>()
-        //     {
-        //         { Option.SingleLinePrinting, "Зашифрованные слова" },
-        //         { Option.MultiLinePrinting, "Multi-line Printing" },
-        //         { Option.LineSpacing, "Line Spacing" },
-        //         { Option.BarcodeStyles, "Barcode Styles" },
-        //         { Option.BarcodeTypes, "Barcode Types" },
-        //         { Option.TwoDimensionCodes, "2D Codes" },
-        //         { Option.TextStyles, "Text Styles" },
-        //         { Option.FullReceipt, "Full Receipt" },
-        //         { Option.CodePages, "Code Pages (Euro, Katakana, Etc)" },
-        //         { Option.Images, "Images" },
-        //         { Option.LegacyImages, "Legacy Images" },
-        //         { Option.LargeByteArrays, "Large Byte Arrays" },
-        //         { Option.CashDrawerPin2, "Cash Drawer Pin2" },
-        //         { Option.CashDrawerPin5, "Cash Drawer Pin5" },
-        //         { Option.Exit, "Exit" }
-        //     
-        //     };
-        //     while (true)
-        //     {
-        //         foreach (var item in testCases)
-        //         {
-        //             Console.WriteLine($"{(int)item.Key} : {item.Value}");
-        //         }
-        //         Console.Write("Execute Test: ");
-        //     
-        //         if (!int.TryParse(Console.ReadLine(), out choice) || !Enum.IsDefined(typeof(Option), choice))
-        //         {
-        //             Console.WriteLine("Invalid entry. Please try again.");
-        //             continue;
-        //         }
-        //     
-        //         var enumChoice = (Option)choice;
-        //         if (enumChoice == Option.Exit)
-        //         {
-        //             return;
-        //         }
-        //     
-        //         Console.Clear();
-        //     
-        //         if (monitor)
-        //         {
-        //             printer.Write(e.Initialize());
-        //             printer.Write(e.Enable());
-        //             printer.Write(e.EnableAutomaticStatusBack());
-        //         }
-        //         Setup(monitor);
-        //     
-        //         printer?.Write(e.PrintLine($"== [ Start {testCases[enumChoice]} ] =="));
-        //     
-        //         switch (enumChoice)
-        //         {
-        //             case Option.SingleLinePrinting:
-        //                 printer.Write(Tests.SingleLinePrinting(e));
-        //                 break;
-        //             case Option.MultiLinePrinting:
-        //                 printer.Write(Tests.MultiLinePrinting(e));
-        //                 break;
-        //             case Option.LineSpacing:
-        //                 printer.Write(Tests.LineSpacing(e));
-        //                 break;
-        //             case Option.BarcodeStyles:
-        //                 printer.Write(Tests.BarcodeStyles(e));
-        //                 break;
-        //             case Option.BarcodeTypes:
-        //                 printer.Write(Tests.BarcodeTypes(e));
-        //                 break;
-        //             case Option.TwoDimensionCodes:
-        //                 printer.Write(Tests.TwoDimensionCodes(e));
-        //                 break;
-        //             case Option.TextStyles:
-        //                 printer.Write(Tests.TextStyles(e));
-        //                 break;
-        //             case Option.FullReceipt:
-        //                 printer.Write(Tests.Receipt(e));
-        //                 break;
-        //             case Option.Images:
-        //                 printer.Write(Tests.Images(e, false));
-        //                 break;
-        //             case Option.LegacyImages:
-        //                 printer.Write(Tests.Images(e, true));
-        //                 break;
-        //             case Option.LargeByteArrays:
-        //                 try
-        //                 {
-        //                     printer.Write(Tests.TestLargeByteArrays(e));
-        //                 }
-        //                 catch (Exception e)
-        //                 {
-        //                     Console.WriteLine($"Aborting print due to test failure. Exception: {e?.Message}, Stack Trace: {e?.GetBaseException()?.StackTrace}");
-        //                 }
-        //                 break;
-        //             case Option.CashDrawerPin2:
-        //                 printer.Write(Tests.CashDrawerOpenPin2(e));
-        //                 break;
-        //             case Option.CashDrawerPin5:
-        //                 printer.Write(Tests.CashDrawerOpenPin5(e));
-        //                 break;
-        //             default:
-        //                 Console.WriteLine("Invalid entry.");
-        //                 break;
-        //         }
-        //     
-        //         Setup(monitor);
-        //         printer?.Write(e.PrintLine($"== [ End {testCases[enumChoice]} ] =="));
-        //         printer?.Write(e.PartialCutAfterFeed(5));
-        //     
-        //         // TODO: also make an automatic runner that runs all tests (command line).
-        //     }
 
         public enum Option
         {
