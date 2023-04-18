@@ -6,6 +6,7 @@
         PDF417        = 0,
         QRCODE_MODEL1 = 49,
         QRCODE_MODEL2 = 50,
+        QRCODE_MODEL = 50,
         QRCODE_MICRO  = 51,
     }
 

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
+using System.IO.Ports;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -19,6 +20,8 @@ namespace ESCPOS_NET
 
         private CancellationTokenSource _readCancellationTokenSource;
         private CancellationTokenSource _writeCancellationTokenSource;
+        public SerialPort Port { get; set; }
+        public SerialPrinter SerialPrinter { get; set; }
 
         private readonly int _maxBytesPerWrite = 15000; // max byte chunks to write at once.
 
@@ -27,12 +30,13 @@ namespace ESCPOS_NET
         public event EventHandler StatusChanged;
         public event EventHandler Disconnected;
         public event EventHandler Connected;
+        // public event EventHandler<byte[]> PaperStatus;
 
         protected BinaryWriter Writer { get; set; }
 
-        protected BinaryReader Reader { get; set; }
+        public BinaryReader Reader { get; set; }
 
-        protected ConcurrentQueue<byte> ReadBuffer { get; set; } = new ConcurrentQueue<byte>();
+        public ConcurrentQueue<byte> ReadBuffer { get; set; } = new ConcurrentQueue<byte>();
 
         protected ConcurrentQueue<byte[]> WriteBuffer { get; set; } = new ConcurrentQueue<byte[]>();
 
@@ -63,7 +67,7 @@ namespace ESCPOS_NET
             Logging.Logger?.LogDebug("[{Function}]:[{PrinterName}] Initializing Task Threads...", $"{this}.{MethodBase.GetCurrentMethod().Name}", PrinterName);
             //Task.Factory.StartNew(MonitorPrinterStatusLongRunningTask, _connectivityCancellationTokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default).ConfigureAwait(false);
             Task.Factory.StartNew(WriteLongRunningTask, _writeCancellationTokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default).ConfigureAwait(false);
-            Task.Factory.StartNew(ReadLongRunningTask, _readCancellationTokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default).ConfigureAwait(false);
+            // Task.Factory.StartNew(ReadLongRunningTask, _readCancellationTokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default).ConfigureAwait(false);
             // TODO: read and status monitoring probably won't work for fileprinter, should let printer types disable this feature.
             Logging.Logger?.LogDebug("[{Function}]:[{PrinterName}] Task Threads started", $"{this}.{MethodBase.GetCurrentMethod().Name}", PrinterName);
         }
@@ -165,6 +169,11 @@ namespace ESCPOS_NET
             WriteBuffer.Enqueue(bytes);
         }
 
+        public virtual void Rider()
+        {
+            
+        }
+
         protected virtual void WriteToBinaryWriter(byte[] bytes)
         {
 
@@ -252,7 +261,7 @@ namespace ESCPOS_NET
             }
         }
 
-        private void TryUpdatePrinterStatus(byte[] bytes)
+        public void TryUpdatePrinterStatus(byte[] bytes)
         {
             var bytesToString = BitConverter.ToString(bytes);
 

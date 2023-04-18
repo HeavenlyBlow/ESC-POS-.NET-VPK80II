@@ -5,18 +5,21 @@ namespace ESCPOS_NET.ConsoleTest
 {
     public static partial class Tests
     {
+
         public static byte[][] Images(ICommandEmitter e, bool isLegacy) => new byte[][] {
-            e.LeftAlign(),
-            e.PrintLine("Test PNG images with widths 100 - 600 px,"),
-            e.PrintLine("at native resolution"),
-            e.PrintLine("-- pd-logo-100.png --"),
-            e.PrintImage(File.ReadAllBytes("images/pd-logo-100.png"), false, isLegacy),
-            e.PrintLine("-- pd-logo-200.png --"),
-            e.PrintImage(File.ReadAllBytes("images/pd-logo-200.png"), false, isLegacy),
-            e.PrintLine("-- pd-logo-300.png --"),
-            e.PrintImage(File.ReadAllBytes("images/pd-logo-300.png"), false, isLegacy),
-            e.PrintLine("-- pd-logo-400.png --"),
-            e.PrintImage(File.ReadAllBytes("images/pd-logo-400.png"), false, isLegacy),
+            e.RightAlign(),
+            // e.PrintLine("Test PNG images with widths 100 - 600 px,"),
+            // e.PrintLine("at native resolution"),
+            // e.PrintLine("-- pd-logo-100.png --"),
+            e.PrintImage(QrGenerator.Generated("std"), false, isLegacy),
+            // e.PrintLine("-- pd-logo-200.png --"),
+            // e.PrintImage(File.ReadAllBytes("images/logo.jpg"), false, isLegacy),
+            // e.PrintLine("-- pd-logo-200.png --"),
+            // e.PrintImage(File.ReadAllBytes("images/pd-logo-200.png"), false, isLegacy),
+            // e.PrintLine("-- pd-logo-300.png --"),
+            // e.PrintImage(File.ReadAllBytes("images/pd-logo-300.png"), false, isLegacy),
+            // e.PrintLine("-- pd-logo-400.png --"),
+            // e.PrintImage(File.ReadAllBytes("images/pd-logo-400.png"), false, isLegacy),
             // e.PrintLine("-- pd-logo-500.png --"),
             // e.PrintImage(File.ReadAllBytes("images/pd-logo-500.png"), true, isLegacy),
             // e.PrintLine("-- pd-logo-600.png --"),

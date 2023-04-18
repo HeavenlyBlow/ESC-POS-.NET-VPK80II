@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="CuCustomWndAPIWrp">
+        <HintPath>\\Mac\Home\Desktop\WindowsAPI_1-03_26042022\CuCustomWndAPI Pack 1.03\Examples\C# Library\bin\x64\CuCustomWndAPIWrp.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

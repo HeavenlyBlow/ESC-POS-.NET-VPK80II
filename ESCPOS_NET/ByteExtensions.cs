@@ -10,6 +10,7 @@
         public static bool IsBitNotSet(this byte b, int offset)
         {
             return (b & (1 << offset)) == 0;
+            // fddfk
         }
     }
 }
